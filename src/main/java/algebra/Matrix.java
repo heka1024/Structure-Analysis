@@ -59,4 +59,25 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
     public Matrix multiplication(Double constant) {
         return null;
     }
+
+    public Matrix transpose() {
+        return null;
+    }
+
+    public Vec column(int index) {
+        final Vec pnew = Vec.of();
+        for (Vec row : this) {
+            pnew.add(row.get(index));
+        }
+        return pnew;
+    }
+
+    public ArrayList<Vec> columns() {
+        return null;
+//        for (int i = 0; i < columnSize(); i++) {
+//            for (Vec row : get(i)) {
+//
+//            }
+//        }
+    }
 }
