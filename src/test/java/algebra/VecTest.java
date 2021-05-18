@@ -47,4 +47,11 @@ public class VecTest {
         final Vec u = Vec.of(1.0, 2.0, 3.0, 4.0, 5.0);
         then(u.reduce((a, i) -> 2 * a + i)).isEqualTo(57);
     }
+
+    @Test
+    void test_equals() {
+        final Vec u = Vec.of(1.0, 2.0);
+        final Vec v = Vec.of(1.0, 0.0).add(Vec.of(0.0, 2.0));
+        then(u.equals(v)).isTrue();
+    }
 }

@@ -14,6 +14,14 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
         return pnew;
     }
 
+    public int rowSize() {
+        return size();
+    }
+
+    public int columnSize() {
+        return get(0).size();
+    }
+
     @Override
     public Matrix add(Matrix other) {
         return null;
