@@ -49,6 +49,14 @@ public class VecTest {
     }
 
     @Test
+    void test_dot_product() {
+        final Vec u = Vec.of(1.0, 2.0, 3.0);
+        final Vec v = Vec.of(3.0, 1.5, 1.0);
+
+        then(u.dot(v)).isEqualTo(9.0);
+    }
+
+    @Test
     void test_equals() {
         final Vec u = Vec.of(1.0, 2.0);
         final Vec v = Vec.of(1.0, 0.0).add(Vec.of(0.0, 2.0));

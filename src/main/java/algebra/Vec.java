@@ -7,8 +7,6 @@ import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
-import exceptions.DifferentSizeException;
-
 public class Vec extends ArrayList<Double> implements Algebraic<Vec> {
     @Serial
     private static final long serialVersionUID = 2477584290530884511L;
@@ -49,6 +47,10 @@ public class Vec extends ArrayList<Double> implements Algebraic<Vec> {
             acc = fn.apply(acc, get(i));
         }
         return acc;
+    }
+
+    public Double dot(Vec other) {
+        return multiplication(other).reduce(Double::sum);
     }
 
     @Override
