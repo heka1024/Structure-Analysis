@@ -3,6 +3,8 @@ package algebra;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.BinaryOperator;
+import java.util.function.UnaryOperator;
 
 public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
     @Serial
@@ -22,14 +24,30 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
         return get(0).size();
     }
 
+    private Matrix map(UnaryOperator<Vec> fn) {
+        final Matrix pnew = of();
+        for (int i = 0; i < size(); i++) {
+            pnew.add(fn.apply(get(i)));
+        }
+        return pnew;
+    }
+
+    private Matrix map2(Matrix other, BinaryOperator<Vec> fn) {
+        final Matrix pnew = of();
+        for (int i = 0; i < size(); i++) {
+            pnew.add(fn.apply(get(i), other.get(i)));
+        }
+        return pnew;
+    }
+
     @Override
     public Matrix add(Matrix other) {
-        return null;
+        return map2(other, Vec::add);
     }
 
     @Override
     public Matrix subtract(Matrix other) {
-        return null;
+        return map2(other, Vec::subtract);
     }
 
     @Override
