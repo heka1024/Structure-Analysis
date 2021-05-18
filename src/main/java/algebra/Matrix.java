@@ -60,10 +60,6 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
         return null;
     }
 
-    public Matrix transpose() {
-        return null;
-    }
-
     public Vec column(int index) {
         final Vec pnew = Vec.of();
         for (Vec row : this) {
@@ -73,11 +69,14 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
     }
 
     public ArrayList<Vec> columns() {
-        return null;
-//        for (int i = 0; i < columnSize(); i++) {
-//            for (Vec row : get(i)) {
-//
-//            }
-//        }
+        return transpose();
+    }
+
+    public Matrix transpose() {
+        final Matrix cs = of();
+        for (int i = 0; i < columnSize(); i++) {
+            cs.add(column(i));
+        }
+        return cs;
     }
 }

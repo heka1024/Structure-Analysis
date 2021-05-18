@@ -37,7 +37,7 @@ public class MatrixTest {
                 Vec.of(2.0, 3.0, 4.0)
         );
         final ArrayList<Vec> cols = new ArrayList<>(
-                Arrays.asList(Vec.of(1.0), Vec.of(2.0, 3.0), Vec.of(3.0, 4.0))
+                Arrays.asList(Vec.of(1.0, 2.0), Vec.of(2.0, 3.0), Vec.of(3.0, 4.0))
         );
         then(m.columns()).isEqualTo(cols);
     }
