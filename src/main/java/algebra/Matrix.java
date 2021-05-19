@@ -16,6 +16,14 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
         return pnew;
     }
 
+    public static Matrix Identity(int size) {
+        final Matrix pnew = of();
+        for (int i = 0; i < size; i++) {
+            pnew.add(Vec.Unit(size, i + 1));
+        }
+        return pnew;
+    }
+
     public int rowSize() {
         return size();
     }

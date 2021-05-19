@@ -81,4 +81,14 @@ public class MatrixTest {
         then(m3.columnSize()).isEqualTo(3);
         then(m3).isEqualTo(result);
     }
+
+    @Test
+    void test_identity() {
+        final Matrix i1 = Matrix.of(
+                Vec.of(1.0, 0.0, 0.0),
+                Vec.of(0.0, 1.0, 0.0),
+                Vec.of(0.0, 0.0, 1.0)
+        );
+        then(Matrix.Identity(3)).isEqualTo(i1);
+    }
 }
