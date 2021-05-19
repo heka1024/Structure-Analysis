@@ -3,6 +3,8 @@ package algebra;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
@@ -10,6 +12,15 @@ import java.util.function.UnaryOperator;
 public class Vec extends ArrayList<Double> implements Algebraic<Vec> {
     @Serial
     private static final long serialVersionUID = 2477584290530884511L;
+
+    public static Vec Unit(int size, int direction) {
+        final Double[] elements = new Double[size];
+        Arrays.fill(elements, 0.0);
+        elements[direction - 1] = 1.0;
+        final Vec u = of();
+        u.addAll(Arrays.asList(elements));
+        return u;
+    }
 
     static Vec of(Double... args) {
         final Vec pnew = new Vec();

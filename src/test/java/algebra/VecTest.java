@@ -62,4 +62,12 @@ public class VecTest {
         final Vec v = Vec.of(1.0, 0.0).add(Vec.of(0.0, 2.0));
         then(u.equals(v)).isTrue();
     }
+
+    @Test
+    void test_unit_vector() {
+        final Vec e1 = Vec.of(1.0, 0.0);
+        final Vec e3 = Vec.of(0.0, 0.0, 1.0);
+        then(Vec.Unit(2, 1)).isEqualTo(e1);
+        then(Vec.Unit(3, 3)).isEqualTo(e3);
+    }
 }
