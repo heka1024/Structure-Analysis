@@ -34,8 +34,8 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
 
     private Matrix map(UnaryOperator<Vec> fn) {
         final Matrix pnew = of();
-        for (int i = 0; i < size(); i++) {
-            pnew.add(fn.apply(get(i)));
+        for (Vec row : this) {
+            pnew.add(fn.apply(row));
         }
         return pnew;
     }
@@ -60,12 +60,12 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
 
     @Override
     public Matrix multiplication(Matrix other) {
-        return null;
+        return map(other.transpose()::multiplication);
     }
 
     @Override
     public Matrix multiplication(Double constant) {
-        return null;
+        return map(row -> row.multiplication(constant));
     }
 
     public Vec multiplication(Vec other) {

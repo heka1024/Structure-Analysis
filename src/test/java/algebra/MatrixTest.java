@@ -113,4 +113,36 @@ public class MatrixTest {
         final Vec u = Vec.of(3.0, 2.0, 1.0);
         then(i1.multiplication(u)).isEqualTo(Vec.of(3.0, 8.0, 10.0));
     }
+
+    @Test
+    void matrix_mult_with_constant() {
+        final Matrix m = Matrix.of(
+                Vec.of(1.0, 0.0, 0.0),
+                Vec.of(2.0, 1.0, 0.0),
+                Vec.of(3.0, 0.0, 1.0)
+        );
+        final Matrix n = Matrix.of(
+                Vec.of(-1.5, -0.0, -0.0),
+                Vec.of(-3.0, -1.5, -0.0),
+                Vec.of(-4.5, -0.0, -1.5)
+        );
+        then(m.multiplication(-1.5)).isEqualTo(n);
+    }
+
+    @Test
+    void matrix_mult() {
+        final Matrix m = Matrix.of(
+                Vec.of(1.0, 1.0),
+                Vec.of(2.0, 3.0)
+        );
+        final Matrix n = Matrix.of(
+                Vec.of(-2.0, 6.0),
+                Vec.of(1.0, 5.0)
+        );
+        final Matrix k = Matrix.of(
+                Vec.of(-1.0, 11.0),
+                Vec.of(-1.0, 27.0)
+        );
+        then(m.multiplication(n)).isEqualTo(k);
+    }
 }
