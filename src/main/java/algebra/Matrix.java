@@ -68,6 +68,14 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
         return null;
     }
 
+    public Vec multiplication(Vec other) {
+        final Vec u = Vec.of();
+        for (Vec row : this) {
+            u.add(row.dot(other));
+        }
+        return u;
+    }
+
     public Vec column(int index) {
         final Vec pnew = Vec.of();
         for (Vec row : this) {

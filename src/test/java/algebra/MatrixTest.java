@@ -91,4 +91,26 @@ public class MatrixTest {
         );
         then(Matrix.Identity(3)).isEqualTo(i1);
     }
+
+    @Test
+    void matrix_mult_with_vector() {
+        final Matrix i1 = Matrix.of(
+                Vec.of(1.0, 0.0, 0.0),
+                Vec.of(0.0, 1.0, 0.0),
+                Vec.of(0.0, 0.0, 1.0)
+        );
+        final Vec u = Vec.of(3.0, 2.0, 1.0);
+        then(i1.multiplication(u)).isEqualTo(Vec.of(3.0, 0.0, 0.0));
+    }
+
+    @Test
+    void matrix_mult_with_vector_more_complex() {
+        final Matrix i1 = Matrix.of(
+                Vec.of(1.0, 0.0, 0.0),
+                Vec.of(2.0, 1.0, 0.0),
+                Vec.of(3.0, 0.0, 1.0)
+        );
+        final Vec u = Vec.of(3.0, 2.0, 1.0);
+        then(i1.multiplication(u)).isEqualTo(Vec.of(3.0, 8.0, 10.0));
+    }
 }
