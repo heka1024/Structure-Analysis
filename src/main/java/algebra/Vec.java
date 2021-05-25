@@ -91,4 +91,10 @@ public class Vec extends ArrayList<Double> implements Algebraic<Vec> {
     public Vec multiplication(Double constant) {
         return map(x -> x * constant);
     }
+
+    public void swap(int i, int j) {
+        final Double tmp = get(i);
+        set(i, get(j));
+        set(j, tmp);
+    }
 }

@@ -155,4 +155,25 @@ public class MatrixTest {
         );
         then(m).isEqualTo(n);
     }
+
+    @Test
+    void solve_matrix() {
+        final Matrix m = Matrix.Identity(3).multiplication(0.5);
+        final Vec u = Vec.of(3.0, 2.0, 1.0);
+        Vec x = m.solve(u);
+        then(x).isEqualTo(u.multiplication(2.0));
+    }
+
+    @Test
+    void test_swap_row() {
+        final Matrix m = Matrix.of(
+                Vec.of(0.0, 8.0, 2.0),
+                Vec.of(3.0, 5.0, 2.0),
+                Vec.of(6.0, 2.0, 8.0)
+        );
+        final Vec u = Vec.of(-7.0, 8.0, 26.0);
+        final Vec x = m.solve(u);
+        final Vec ans = Vec.of(4.0, -1.0, 0.5);
+        then(x).isEqualTo(ans);
+    }
 }
