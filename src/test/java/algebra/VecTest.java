@@ -70,4 +70,10 @@ public class VecTest {
         then(Vec.Unit(2, 1)).isEqualTo(e1);
         then(Vec.Unit(3, 3)).isEqualTo(e3);
     }
+
+    @Test
+    void test_construct_with_size() {
+        final Vec u = Vec.ofSize(3);
+        then(u).isEqualTo(Vec.of(0.0, 0.0, 0.0));
+    }
 }
