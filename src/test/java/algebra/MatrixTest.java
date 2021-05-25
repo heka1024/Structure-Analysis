@@ -145,4 +145,14 @@ public class MatrixTest {
         );
         then(m.multiplication(n)).isEqualTo(k);
     }
+
+    @Test
+    void constructor_with_size() {
+        final Matrix m = Matrix.ofSize(2, 3);
+        final Matrix n = Matrix.of(
+                Vec.of(0.0, 0.0, 0.0),
+                Vec.of(0.0, 0.0, 0.0)
+        );
+        then(m).isEqualTo(n);
+    }
 }
