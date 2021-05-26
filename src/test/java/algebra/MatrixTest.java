@@ -187,4 +187,18 @@ public class MatrixTest {
         then(m.inverse()).isEqualTo(i.multiplication(0.5));
 //        then().isEqualTo(i);
     }
+
+    @Test
+    void test_inverse() {
+        final Matrix m = Matrix.of(
+                Vec.of(1.0, 2.0),
+                Vec.of(1.0, 3.0)
+        );
+        final Matrix n = Matrix.of(
+                Vec.of(3.0, -2.0),
+                Vec.of(-1.0, 1.0)
+        );
+        then(m.inverse()).isEqualTo(n);
+//        then().isEqualTo(i);
+    }
 }
