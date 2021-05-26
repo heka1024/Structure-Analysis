@@ -133,6 +133,10 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
         return ans;
     }
 
+    public Matrix inverse() {
+        return (Matrix) clone();
+    }
+
     private int findLargestRowOf(int col) {
         return findLargestRowOf(col, 0);
     }

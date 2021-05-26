@@ -176,4 +176,10 @@ public class MatrixTest {
         final Vec ans = Vec.of(4.0, -1.0, 0.5);
         then(x).isEqualTo(ans);
     }
+
+    @Test
+    void test_inverse_to_identity() {
+        final Matrix i = Matrix.Identity(3);
+        then(i).isEqualTo(i);
+    }
 }
