@@ -5,6 +5,8 @@ import static org.assertj.core.api.BDDAssertions.then;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.print.attribute.standard.Fidelity;
+
 import org.junit.jupiter.api.Test;
 
 public class MatrixTest {
@@ -180,6 +182,9 @@ public class MatrixTest {
     @Test
     void test_inverse_to_identity() {
         final Matrix i = Matrix.Identity(3);
-        then(i).isEqualTo(i);
+        final Matrix m = i.multiplication(2.0);
+        then(i.inverse()).isEqualTo(i);
+        then(m.inverse()).isEqualTo(i.multiplication(0.5));
+//        then().isEqualTo(i);
     }
 }

@@ -134,7 +134,11 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
     }
 
     public Matrix inverse() {
-        return (Matrix) clone();
+        final Matrix mat = (Matrix) clone(), ret = of();
+        for (int i = 0; i < size(); i++) {
+            ret.add(mat.solve(Vec.Unit(mat.size(), i + 1)));
+        }
+        return ret.transpose();
     }
 
     private int findLargestRowOf(int col) {
