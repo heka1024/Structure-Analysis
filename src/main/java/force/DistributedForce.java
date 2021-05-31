@@ -26,6 +26,6 @@ public class DistributedForce implements Force {
 
     @Override
     public double magnitude() {
-        return 0;
+        return (q1 + q2) / 2 * (x2 - x1);
     }
 }

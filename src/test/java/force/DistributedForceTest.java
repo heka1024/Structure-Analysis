@@ -14,4 +14,11 @@ class DistributedForceTest {
         then(f.value(30)).isEqualTo(200);
     }
 
+    @Test
+    void test_magnitude() {
+        final DistributedForce f = DistributedForce.of(100, 200, 10, 30);
+        then(f.magnitude()).isEqualTo(3000);
+    }
+
+
 }
