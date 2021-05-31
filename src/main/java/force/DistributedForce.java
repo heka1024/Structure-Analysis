@@ -16,7 +16,11 @@ public class DistributedForce implements Force {
 
     @Override
     public double value(double x) {
-        return q1 + (q2 - q1) * ((x - x1) / (x2 - x1));
+        if (x < x1 || x > x2) {
+            return 0;
+        } else {
+            return q1 + (q2 - q1) * ((x - x1) / (x2 - x1));
+        }
     }
 
     @Override
