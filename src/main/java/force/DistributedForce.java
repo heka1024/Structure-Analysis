@@ -21,7 +21,13 @@ public class DistributedForce implements Force {
 
     @Override
     public double shearForce(double x) {
-        return 0;
+        if (x < x1) {
+            return 0;
+        } else if (x > x2) {
+            return magnitude();
+        } else {
+            return (value(x) + q1) / 2 * (x - x1);
+        }
     }
 
     @Override

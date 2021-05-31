@@ -20,5 +20,11 @@ class DistributedForceTest {
         then(f.magnitude()).isEqualTo(3000);
     }
 
-
+    @Test
+    void test_shearforce() {
+        final DistributedForce f = DistributedForce.of(100, 200, 10, 30);
+        then(f.shearForce(5)).isEqualTo(0);
+        then(f.shearForce(35)).isEqualTo(3000);
+        then(f.shearForce(20)).isEqualTo(1250);
+    }
 }
