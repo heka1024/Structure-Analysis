@@ -4,10 +4,11 @@ import algebra.Matrix;
 import algebra.Vec;
 
 import static java.lang.Math.pow;
+import static java.lang.Math.toRadians;
 
 public class Element {
-    public double l, A, E, I;
-    final Matrix kMatrix;
+    public double l, A, E, I, angle = 0.0;
+    final Matrix kMatrix, tMatrix;
 
 
     public Element(double l, double a, double e, double i) {
@@ -16,10 +17,29 @@ public class Element {
         E = e;
         I = i;
         kMatrix = buildK();
+        tMatrix = buildT(angle);
+    }
+
+    public Element(double l, double angle, double a, double e, double i) {
+        this.l = l;
+        A = a;
+        E = e;
+        I = i;
+        this.angle = angle;
+        kMatrix = buildK();
+        tMatrix = buildT(angle);
+    }
+
+    private Matrix buildT(double angle) {
+        return Matrix.Transform(toRadians(angle));
     }
 
     public static Element of(double l, double a, double e, double i) {
         return new Element(l, a, e, i);
+    }
+
+    public static Element of(double l, double angle, double a, double e, double i) {
+        return new Element(l, angle, a, e, i);
     }
 
     private Matrix buildK() {
@@ -50,7 +70,11 @@ public class Element {
         return A1.add(A2).add(A3).add(A4);
     }
 
-    public Matrix getkMatrix() {
+    public Matrix getKMatrix() {
         return kMatrix;
+    }
+
+    public Matrix getTransformedMatrix() {
+        return tMatrix.multiplication(kMatrix).multiplication(tMatrix.transpose());
     }
 }

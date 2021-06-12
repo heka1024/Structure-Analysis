@@ -1,11 +1,9 @@
 package structure;
 
-import algebra.Matrix;
 import algebra.Vec;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ElementTest {
     @Test
@@ -20,7 +18,13 @@ class ElementTest {
 //                Vec.of(0.1, 0, 0, -0.1, 0, 0),
 //        )
         System.out.println(e.kMatrix);
-        then(e.getkMatrix().get(0)).isEqualTo(Vec.of(0.1, 0.0, 0.0, -0.1, 0.0, 0.0));
+        then(e.getKMatrix().get(0)).isEqualTo(Vec.of(0.1, 0.0, 0.0, -0.1, 0.0, 0.0));
+    }
+
+    @Test
+    void test_transformed_matrix() {
+        final Element e = Element.of(8, 32,1, 1, 1);
+        System.out.println(e.getTransformedMatrix());
     }
 
 }
