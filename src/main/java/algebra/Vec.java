@@ -22,7 +22,7 @@ public class Vec extends ArrayList<Double> implements Algebraic<Vec> {
         return u;
     }
 
-    static Vec of(Double... args) {
+    static public  Vec of(Double... args) {
         final Vec pnew = new Vec();
         pnew.addAll(Arrays.asList(args));
         return pnew;
