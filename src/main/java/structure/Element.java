@@ -2,6 +2,9 @@ package structure;
 
 import algebra.Matrix;
 import algebra.Vec;
+import force.Force;
+
+import java.util.List;
 
 import static java.lang.Math.pow;
 import static java.lang.Math.toRadians;
@@ -9,6 +12,7 @@ import static java.lang.Math.toRadians;
 public class Element {
     public double l, A, E, I, angle = 0.0;
     final Matrix kMatrix, tMatrix;
+//    List<Force> loads;
 
 
     public Element(double l, double a, double e, double i) {
@@ -76,5 +80,16 @@ public class Element {
 
     public Matrix getTransformedMatrix() {
         return tMatrix.multiplication(kMatrix).multiplication(tMatrix.transpose());
+    }
+
+    @Override
+    public String toString() {
+        return "Element{" +
+                "l=" + l +
+                ", A=" + A +
+                ", E=" + E +
+                ", I=" + I +
+                ", angle=" + angle +
+                '}';
     }
 }

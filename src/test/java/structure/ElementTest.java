@@ -27,4 +27,10 @@ class ElementTest {
         System.out.println(e.getTransformedMatrix());
     }
 
+    @Test
+    void test_build_local() {
+        Element e = Element.of(9.9, 45, 1, 1, 1);
+        System.out.println(e.getTransformedMatrix());
+    }
+
 }
