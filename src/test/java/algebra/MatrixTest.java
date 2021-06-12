@@ -1,5 +1,6 @@
 package algebra;
 
+import static org.assertj.core.api.Assertions.filter;
 import static org.assertj.core.api.BDDAssertions.then;
 
 import java.util.ArrayList;
@@ -35,6 +36,19 @@ public class MatrixTest {
     }
 
     @Test
+    void test_matrix_with_offset_with_size() {
+        final Matrix a = Matrix.of(
+                Vec.of(1.0, 2.0, 3.0),
+                Vec.of(2.0, 3.0, 4.0)
+        ).ofOffset(1, 1, 1, 1);
+        then(a.rowSize()).isEqualTo(4);
+        then(a.columnSize()).isEqualTo(5);
+        then(a.get(0)).isEqualTo(Vec.of(0.0, 0.0, 0.0, 0.0, 0.0));
+        then(a.get(1)).isEqualTo(Vec.of(0.0, 1.0, 2.0, 3.0, 0.0));
+        then(a.get(2)).isEqualTo(Vec.of(0.0, 2.0, 3.0, 4.0, 0.0));
+    }
+
+    @Test
     void test_column() {
         final Matrix m = Matrix.of(
                 Vec.of(1.0, 2.0, 3.0),
@@ -43,6 +57,12 @@ public class MatrixTest {
         then(m.column(0)).isEqualTo(Vec.of(1.0, 2.0));
         then(m.column(1)).isEqualTo(Vec.of(2.0, 3.0));
         then(m.column(2)).isEqualTo(Vec.of(3.0, 4.0));
+    }
+
+    @Test
+    void test_transform() {
+        final Matrix m = Matrix.Transform(0.5235); // deg 30
+        System.out.println(m);
     }
 
     @Test

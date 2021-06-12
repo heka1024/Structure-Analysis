@@ -45,7 +45,16 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
         return mat;
     }
 
-    private static Matrix smallTransform(int angle) {
+    public Matrix ofOffset(int rows, int cols, int rows2, int cols2) {
+        final Matrix mat = Matrix.ofSize(rowSize() + rows + rows2, columnSize() + cols + cols2);
+        for (int i = 0; i < rowSize(); i++) {
+            final Vec row = get(i).ofOffset(cols, cols2);
+            mat.set(i + rows, row);
+        }
+        return mat;
+    }
+
+    private static Matrix SmallTransform(double angle) {
         return Matrix.of(
                 Vec.of(cos(angle), -sin(angle), 0.0),
                 Vec.of(sin(angle), cos(angle), 0.0),
@@ -53,9 +62,9 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
         );
     }
 
-    public static Matrix Transform(int angle) {
-        final Matrix pnew = Matrix.ofSize(6, 6);
-        return pnew;
+    public static Matrix Transform(double angle) {
+        return SmallTransform(angle).ofOffset(0, 0, 3, 3)
+               .add(SmallTransform(angle).ofOffset(3, 3));
     }
 
     public int rowSize() {

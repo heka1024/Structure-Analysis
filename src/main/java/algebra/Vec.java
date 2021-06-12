@@ -80,6 +80,14 @@ public class Vec extends ArrayList<Double> implements Algebraic<Vec> {
         return u;
     }
 
+    public Vec ofOffset(int offset, int size) {
+        final Vec u = Vec.ofSize(offset + size() + size);
+        for (int i = 0; i < size(); i++) {
+            u.set(i + offset, get(i));
+        }
+        return u;
+    }
+
     @Override
     public Vec add(Vec other) {
         return map2(other, Double::sum);
