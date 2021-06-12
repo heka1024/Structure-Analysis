@@ -1,10 +1,14 @@
 package algebra;
 
+import javax.swing.*;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
     @Serial
@@ -29,6 +33,28 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
         for (int i = 0; i < size; i++) {
             pnew.add(Vec.Unit(size, i + 1));
         }
+        return pnew;
+    }
+
+    public Matrix ofOffset(int rows, int cols) {
+        final Matrix mat = Matrix.ofSize(rowSize() + rows, columnSize() + cols);
+        for (int i = 0; i < rowSize(); i++) {
+            final Vec row = get(i).ofOffset(cols);
+            mat.set(i + rows, row);
+        }
+        return mat;
+    }
+
+    private static Matrix smallTransform(int angle) {
+        return Matrix.of(
+                Vec.of(cos(angle), -sin(angle), 0.0),
+                Vec.of(sin(angle), cos(angle), 0.0),
+                Vec.of(0.0, 0.0, 1.0)
+        );
+    }
+
+    public static Matrix Transform(int angle) {
+        final Matrix pnew = Matrix.ofSize(6, 6);
         return pnew;
     }
 

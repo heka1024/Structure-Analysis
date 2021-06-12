@@ -15,6 +15,17 @@ public class VecTest {
     }
 
     @Test
+    void ofOffsetTest() {
+        final Vec u = Vec.of(1.0, 2.0, 3.0).ofOffset(2);
+        then(u.size()).isEqualTo(5);
+        then(u.get(0)).isEqualTo(0.0);
+        then(u.get(1)).isEqualTo(0.0);
+        then(u.get(2)).isEqualTo(1.0);
+        then(u.get(3)).isEqualTo(2.0);
+        then(u.get(4)).isEqualTo(3.0);
+    }
+
+    @Test
     void add_well() {
         final Vec u = Vec.of(1.0, 2.0, 3.0);
         final Vec v = Vec.of(2.0, 3.0, -4.0);

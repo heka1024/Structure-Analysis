@@ -22,6 +22,19 @@ public class MatrixTest {
     }
 
     @Test
+    void test_matrix_with_offset() {
+        final Matrix a = Matrix.of(
+                Vec.of(1.0, 2.0, 3.0),
+                Vec.of(2.0, 3.0, 4.0)
+        ).ofOffset(1, 1);
+        then(a.rowSize()).isEqualTo(3);
+        then(a.columnSize()).isEqualTo(4);
+        then(a.get(0)).isEqualTo(Vec.of(0.0, 0.0, 0.0, 0.0));
+        then(a.get(1)).isEqualTo(Vec.of(0.0, 1.0, 2.0, 3.0));
+        then(a.get(2)).isEqualTo(Vec.of(0.0, 2.0, 3.0, 4.0));
+    }
+
+    @Test
     void test_column() {
         final Matrix m = Matrix.of(
                 Vec.of(1.0, 2.0, 3.0),
