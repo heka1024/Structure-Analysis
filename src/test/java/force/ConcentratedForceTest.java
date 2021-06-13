@@ -43,7 +43,7 @@ class ConcentratedForceTest {
         final Element e = Element.of(3, 0, 1, 1, 1);
         final ConcentratedForce f = ConcentratedForce.of(9, 1);
         final Pair<Double, Double> p = f.momentAtElement(e);
-        then(p.first).isEqualTo(4.0);
-        then(p.second).isEqualTo(-2.0);
+        then(p.first).isEqualTo(-4.0);
+        then(p.second).isEqualTo(2.0);
     }
 }

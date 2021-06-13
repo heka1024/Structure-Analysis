@@ -1,14 +1,13 @@
 package algebra;
 
-import javax.swing.*;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
-
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
 
 public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
     @Serial
@@ -162,7 +161,6 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
 
             // construct echelon form
             final Double pivot = mat.get(k).get(k);
-            System.out.println("pivot is " +  pivot);
             for (int j = k + 1; j < mat.rowSize(); j++) {
                 final Double constant = mat.get(j).get(k) / pivot;
                 mat.set(j, mat.get(j).subtract(mat.get(k).multiplication(constant)));

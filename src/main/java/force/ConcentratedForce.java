@@ -49,8 +49,8 @@ public class ConcentratedForce implements Force {
     public Pair<Double, Double> momentAtElement(Element e) {
         final double a = x, b = e.l - x;
         return Pair.of(
-                momentHelper(a, b) / pow(e.l, 2),
-                -momentHelper(b, a) / pow(e.l, 2)
+                -momentHelper(a, b) / pow(e.l, 2),
+                momentHelper(b, a) / pow(e.l, 2)
         );
     }
 

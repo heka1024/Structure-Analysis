@@ -22,13 +22,13 @@ public class Vec extends ArrayList<Double> implements Algebraic<Vec> {
         return u;
     }
 
-    static public  Vec of(Double... args) {
+    public static Vec of(Double... args) {
         final Vec pnew = new Vec();
         pnew.addAll(Arrays.asList(args));
         return pnew;
     }
 
-    static Vec ofSize(int size) {
+    public static Vec ofSize(int size) {
         final Vec pnew = new Vec();
         final Double[] zeros = new Double[size];
         Arrays.fill(zeros, 0.0);

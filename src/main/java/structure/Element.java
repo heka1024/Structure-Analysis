@@ -3,7 +3,9 @@ package structure;
 import algebra.Matrix;
 import algebra.Vec;
 import force.Force;
+import util.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.pow;
@@ -12,8 +14,8 @@ import static java.lang.Math.toRadians;
 public class Element {
     public double l, A, E, I, angle = 0.0;
     final Matrix kMatrix, tMatrix;
-//    List<Force> loads;
-
+    Vec dVector;
+    List<Force> loads = new ArrayList<>();
 
     public Element(double l, double a, double e, double i) {
         this.l = l;
@@ -80,6 +82,23 @@ public class Element {
 
     public Matrix getTransformedMatrix() {
         return tMatrix.multiplication(kMatrix).multiplication(tMatrix.transpose());
+    }
+
+    public Vec buildDisplacement() {
+        final Vec u = Vec.ofSize(6);
+        for (Force load : loads) {
+            final Pair<Double, Double> react = load.reactAtElement(this);
+            final Pair<Double, Double> moment = load.momentAtElement(this);
+            u.set(1, u.get(1) + react.first);
+            u.set(4, u.get(4) + react.second);
+            u.set(2, u.get(2) + moment.first);
+            u.set(5, u.get(5) + moment.second);
+        }
+        return dVector = u;
+    }
+
+    public Vec getTransformedDVector() {
+        return tMatrix.multiplication(dVector);
     }
 
     @Override
