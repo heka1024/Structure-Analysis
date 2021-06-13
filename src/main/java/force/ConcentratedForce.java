@@ -1,5 +1,7 @@
 package force;
 
+import static java.lang.Math.pow;
+
 import structure.Element;
 import util.Pair;
 
@@ -36,12 +38,28 @@ public class ConcentratedForce implements Force {
 
     @Override
     public Pair<Double, Double> reactAtElement(Element e) {
-        return null;
+        final double a = x, b = e.l - x;
+        return Pair.of(
+                reactHelper(a, b) / pow(e.l, 3),
+                reactHelper(b, a) / pow(e.l, 3)
+        );
     }
 
     @Override
     public Pair<Double, Double> momentAtElement(Element e) {
-        return null;
+        final double a = x, b = e.l - x;
+        return Pair.of(
+                momentHelper(a, b) / pow(e.l, 2),
+                -momentHelper(b, a) / pow(e.l, 2)
+        );
+    }
+
+    private double reactHelper(double a, double b) {
+        return pow(b, 2) * (3 * a + b) * q;
+    }
+
+    private double momentHelper(double a, double b) {
+        return a * pow(b, 2) * q;
     }
 
     private double u(double x) {
