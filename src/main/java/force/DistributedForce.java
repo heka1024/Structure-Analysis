@@ -47,7 +47,7 @@ public class DistributedForce implements Force {
     @Override
     public Pair<Double, Double> reactAtElement(Element e) {
         final double l1 = x1, l2 = e.l - x2, L = e.l, k = L - l1;
-        double v = 1 + l2 / k + pow(l2, 2) / pow(k, 2);
+        final double v = 1 + l2 / k + pow(l2, 2) / pow(k, 2);
 
         final double fsb = q1 * pow(k, 3) / (20 * pow(L, 3)) * (
                 (7 * L + 8 * l1)
@@ -72,12 +72,13 @@ public class DistributedForce implements Force {
                             - l2 * (2 * L + 3 * l1) / k * v
                             + 3 * pow(l2, 4) / pow(k, 3);
         final double right = (2 * L + 3 * l1) * v
-            - 2 * pow(l2, 3) / pow(k, 2) * (1 + (5 * L - 4 * l2) / k);
+            - 3 * pow(l2, 3) / pow(k, 2) * (1 + (5 * L - 4 * l2) / k);
         final double fmb = q1 * pow(k, 3) / (60 * pow(L, 2)) * left
             + q2 * pow(k, 3) / (60 * pow(L, 2)) * right;
-        final double fme = (k - l2) / 6 * (
-                q1 * (-2 * L + 2 * l1 - l2) - q2 * (L - l1 + 2 * l2)
-        ) - fmb - L * reactAtElement(e).first; // - FSb(L)
-        return Pair.of(fmb, fme);
+
+        final double fme_inside = q1 * (-2 * L + 2 * l1 - l2) - q2 * (L - l1 + 2 * l2);
+
+        final double fme = (L - l1 - l2) / 6 * fme_inside - fmb + L * reactAtElement(e).first; // - FSb(L)
+        return Pair.of(-fmb, -fme);
     }
 }
