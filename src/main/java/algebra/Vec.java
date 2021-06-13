@@ -88,6 +88,18 @@ public class Vec extends ArrayList<Double> implements Algebraic<Vec> {
         return u;
     }
 
+    public Vec subVector(int skip, int limit) {
+        final Vec u = Vec.of();
+        for (int i = skip; i < limit + skip; i++) {
+            u.add(get(i));
+        }
+        return u;
+    }
+
+    public Vec subVector(int offset) {
+        return subVector(offset, size() - offset);
+    }
+
     @Override
     public Vec add(Vec other) {
         return map2(other, Double::sum);

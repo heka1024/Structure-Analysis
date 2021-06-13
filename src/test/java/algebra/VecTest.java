@@ -99,4 +99,17 @@ public class VecTest {
         final Vec u = Vec.ofSize(3);
         then(u).isEqualTo(Vec.of(0.0, 0.0, 0.0));
     }
+
+    @Test
+    void test_subvector_without_limit() {
+        final Vec u = Vec.of(0.0, 1.0, 2.0, 3.0, 4.0);
+        then(u.subVector(0)).isEqualTo(u);
+        then(u.subVector(2)).isEqualTo(Vec.of(2.0, 3.0, 4.0));
+    }
+
+    @Test
+    void test_subvector_with_limit_and_offset() {
+        final Vec u = Vec.of(0.0, 1.0, 2.0, 3.0, 4.0);
+        then(u.subVector(2, 2)).isEqualTo(Vec.of(2.0, 3.0));
+    }
 }

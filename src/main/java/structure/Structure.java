@@ -1,6 +1,7 @@
 package structure;
 
 import algebra.Matrix;
+import algebra.Vec;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -37,11 +38,8 @@ public class Structure {
                        3 * (n - 1 - i),
                        3 * (n - 1 - i)
                );
-//            System.out.println(current);
             pnew = pnew.add(current);
-//            System.out.println("----------------------");
         }
         return pnew;
     }
-
 }

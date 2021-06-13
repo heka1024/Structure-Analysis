@@ -17,7 +17,6 @@ class StructureTest {
         final Matrix k = s.getGlobalKMatrix();
         then(k.rowSize()).isEqualTo(12);
         then(k.columnSize()).isEqualTo(12);
-        System.out.println(k);
     }
 
 }
