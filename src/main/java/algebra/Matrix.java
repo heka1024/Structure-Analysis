@@ -54,6 +54,18 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
         return mat;
     }
 
+    public Matrix subMatrix(int skipRow, int skipColumn, int limitRow, int limitColumn) {
+        final Matrix m = Matrix.of();
+        for (int i = skipRow; i < skipRow + limitRow; i++) {
+            m.add(get(i).subVector(skipColumn, limitColumn));
+        }
+        return m;
+    }
+
+    public Matrix subMatrix(int skipRow, int skipColumn) {
+        return subMatrix(skipRow, skipColumn, rowSize() - skipRow, columnSize() - skipColumn);
+    }
+
     private static Matrix SmallTransform(double angle) {
         return Matrix.of(
                 Vec.of(cos(angle), -sin(angle), 0.0),

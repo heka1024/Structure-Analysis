@@ -234,4 +234,30 @@ public class MatrixTest {
         then(m.inverse()).isEqualTo(n);
 //        then().isEqualTo(i);
     }
+
+    @Test
+    void test_submatrix_with_limit() {
+        final Matrix m = Matrix.of(
+                Vec.of(0.0, 8.0, 2.0, -1.0),
+                Vec.of(3.0, 5.0, 2.0, -3.0),
+                Vec.of(6.0, 2.0, 8.0, -2.0)
+        );
+        final Matrix n = m.subMatrix(1, 2, 1, 2);
+        final Matrix subMat = Matrix.of(
+                Vec.of(2.0, -3.0)
+        );
+        then(n).isEqualTo(subMat);
+    }
+
+    @Test
+    void test_submatrix() {
+        final Matrix m = Matrix.of(
+                Vec.of(0.0, 8.0, 2.0),
+                Vec.of(3.0, 5.0, 2.0),
+                Vec.of(6.0, 2.0, 8.0)
+        );
+        final Matrix n = m.subMatrix(1, 2);
+        then(n.get(0)).isEqualTo(Vec.of(2.0));
+        then(n.get(1)).isEqualTo(Vec.of(8.0));
+    }
 }
