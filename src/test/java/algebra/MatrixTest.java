@@ -1,14 +1,11 @@
 package algebra;
 
-import static org.assertj.core.api.Assertions.filter;
-import static org.assertj.core.api.BDDAssertions.then;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.print.attribute.standard.Fidelity;
-
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.BDDAssertions.then;
 
 public class MatrixTest {
     @Test

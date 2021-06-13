@@ -1,5 +1,8 @@
 package force;
 
+import structure.Element;
+import util.Pair;
+
 public class ConcentratedForce implements Force {
     final double q, x;
     static final double eps = 0.0000000001;
@@ -29,6 +32,16 @@ public class ConcentratedForce implements Force {
     @Override
     public double magnitude() {
         return q;
+    }
+
+    @Override
+    public Pair<Double, Double> reactAtElement(Element e) {
+        return null;
+    }
+
+    @Override
+    public Pair<Double, Double> momentAtElement(Element e) {
+        return null;
     }
 
     private double u(double x) {
