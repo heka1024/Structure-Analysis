@@ -3,6 +3,7 @@ package structure;
 import algebra.Matrix;
 import algebra.Vec;
 import force.NodeForce;
+import util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,8 +19,9 @@ public class Structure {
     List<NodeForce> nodeForces = new ArrayList<>();
     public int nodeSize;
     List<Node> nodes = new ArrayList<>();
+    List<Integer> xs = new ArrayList<>();
     Matrix globalKMatrix;
-    Vec globalPVector, globalDVector;
+    Vec globalPVector, globalDVector = Vec.of();
 
     public static Structure of(Element... args) {
         return new Structure(Arrays.asList(args));
@@ -74,17 +76,52 @@ public class Structure {
         return globalDVector;
     }
 
-    private Vec buildGlobalDVector() {
+    public Vec buildGlobalDVector() {
         Objects.requireNonNull(globalKMatrix, "k matrix should be non null");
         Objects.requireNonNull(globalPVector, "p vector should be non null");
-        System.out.println();
-        globalDVector = globalKMatrix.solve(globalPVector);
-        System.out.println(" ---------- k inverse -----------");
-        System.out.println(globalKMatrix.inverse().multiplication(globalKMatrix));
-        System.out.println("--------- global d Vector ---------");
-        System.out.println(globalDVector);
-        System.out.println("------------------------------------");
+        final Pair<Matrix, Vec> p = filterMatrix();
+        System.out.println("---------------- abbc -------------");
+        System.out.println(p);
+        final Vec partialD = p.first.solve(p.second);
+        System.out.println("------ partial d -----");
+        System.out.println(partialD);
+
+        int cnt = 0;
+        System.out.println(xs);
+        for (final int x : xs) {
+            if (x == 0) {
+                globalDVector.add(0.0);
+            } else {
+                globalDVector.add(partialD.get(cnt));
+                cnt++;
+                System.out.println(cnt);
+            }
+        }
 
         return globalDVector;
+    }
+
+    public Pair<Matrix, Vec> filterMatrix() {
+        xs = new ArrayList<>();
+        for (Node node : nodes) {
+            xs.add(node.dofOfX);
+            xs.add(node.dofOfY);
+            xs.add(node.dofOfR);
+        }
+        final Matrix m = Matrix.of();
+        final Vec vector = Vec.of();
+        for (int i = 0; i < getGlobalKMatrix().size(); i++) {
+            if (xs.get(i) == 1) {
+                final Vec pnew = Vec.of();
+                for (int j = 0; j < getGlobalKMatrix().get(i).size(); j++) {
+                    if (xs.get(j) == 1) {
+                        pnew.add(getGlobalKMatrix().get(i).get(j));
+                    }
+                }
+                m.add(pnew);
+                vector.add(getGlobalPVector().get(i));
+            }
+        }
+        return Pair.of(m, vector);
     }
 }
