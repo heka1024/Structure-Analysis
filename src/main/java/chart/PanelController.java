@@ -24,22 +24,4 @@ public class PanelController extends JPanel {
         this.add(new ChartPanel(chart, W, H, W, H, W, H,
                 false, true, true, true, true, true));
     }
-
-    public static void main(final String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                JFrame f = new JFrame("Demo");
-                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                f.setLayout(new GridLayout(1, 0));
-                f.add(new PanelController(40));
-                f.add(new PanelController(60));
-                f.add(new PanelController(80));
-                f.pack();
-                f.setVisible(true);
-            }
-        });
-
-    }
 }

@@ -28,7 +28,10 @@ public class ConcentratedForce implements Force {
 
     @Override
     public double shearForce(double x) {
-        return u(x) * q;
+        if (x > this.x) {
+            return q;
+        }
+        return 0;
     }
 
     @Override

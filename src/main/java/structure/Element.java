@@ -36,6 +36,8 @@ public class Element {
         this.angle = angle;
         kMatrix = buildK();
         tMatrix = buildT(angle);
+        System.out.println("---------- t Matrix -----------");
+        System.out.println(tMatrix);
     }
 
     private Matrix buildT(double angle) {

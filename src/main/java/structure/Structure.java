@@ -3,6 +3,7 @@ package structure;
 import algebra.Matrix;
 import algebra.Vec;
 import force.NodeForce;
+import force.NodeMoment;
 import util.Pair;
 
 import java.util.ArrayList;
@@ -15,8 +16,9 @@ public class Structure {
         this.elementList = elementList;
     }
 
-    List<Element> elementList;
-    List<NodeForce> nodeForces = new ArrayList<>();
+    public List<Element> elementList;
+    public List<NodeForce> nodeForces = new ArrayList<>();
+    public List<NodeMoment> nodeMoments = new ArrayList<>();
     public int nodeSize;
     List<Node> nodes = new ArrayList<>();
     List<Integer> xs = new ArrayList<>();
@@ -41,7 +43,7 @@ public class Structure {
         return globalPVector;
     }
 
-    private Matrix buildGlobalK() {
+    public Matrix buildGlobalK() {
         final int n = nodeSize;
         Matrix pnew = Matrix.ofSize(3 * n, 3 * n);
         for (Element cur : elementList) {
@@ -50,17 +52,20 @@ public class Structure {
         return pnew;
     }
 
-    private Vec buildGlobalP() {
+    public Vec buildGlobalP() {
         final int n = nodeSize;
         Vec pnew = Vec.ofSize(3 * n);
         for (NodeForce nf : nodeForces) {
             pnew = pnew.add(nf.forceVec(n));
         }
+        for (NodeMoment mf : nodeMoments) {
+            pnew = pnew.add(mf.forceVec(n));
+        }
         for (Element element : elementList) {
             final Vec current = element.splitedVec(n);
             pnew = pnew.subtract(current);
         }
-        return pnew;
+        return globalPVector = pnew;
     }
 
     public void distributeForce() {
