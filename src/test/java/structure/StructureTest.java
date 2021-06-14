@@ -32,7 +32,8 @@ class StructureTest {
         final ConcentratedForce f = ConcentratedForce.of(9, 1);
         e.loads.add(f);
 //        final Pair<Double, Double> p = f.momentAtElement(e);
-        System.out.println(s.getGlobalPVector());
+//        final Vec v = Vec.of(0.000, 0.000, 0.000, -6.182, 6.182, 7.274, -0.182, 0.182, -0.817, 0.000, 0.000, 0.000);
+//        then(s.getGlobalPVector()).isEqualTo(v);
     }
 
     @Test
