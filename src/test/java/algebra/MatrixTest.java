@@ -197,6 +197,19 @@ public class MatrixTest {
     }
 
     @Test
+    void solve_matrix_2() {
+        final Matrix a = Matrix.of(
+                Vec.of(3.0, 1.0,   -1.0),
+                Vec.of(1.0, 5.0, 3.0),
+                Vec.of(-5.0, -8.0, 12.0)
+        );
+        System.out.println(a.multiplication(a.inverse()));
+        final Vec b = Vec.of(10.0, 12.0, 22.0);
+        System.out.println(a.solve(b));
+
+    }
+
+    @Test
     void solve_matrix_with_12() {
         final Matrix m = Matrix.of(
                 Vec.of(0.188,0.0,-.0375,-0.188,0.0,-0.375,0.0,0.0,0.0,0.0,0.0,0.0),
@@ -243,14 +256,20 @@ public class MatrixTest {
     @Test
     void test_inverse() {
         final Matrix m = Matrix.of(
-                Vec.of(1.0, 2.0),
-                Vec.of(1.0, 3.0)
+                Vec.of(1.0, 2.0, 4.5),
+                Vec.of(1.0, 3.0, 5.5),
+                Vec.of(-9.3, -2.0, 1.7)
         );
         final Matrix n = Matrix.of(
                 Vec.of(3.0, -2.0),
                 Vec.of(-1.0, 1.0)
         );
-        then(m.inverse()).isEqualTo(n);
+        System.out.println(m.inverse());
+        System.out.println("------------");
+        System.out.println(m.inverse().inverse());
+        System.out.println("----------------");
+        System.out.println(m.inverse().multiplication(m));
+//        then(m.inverse()).isEqualTo(n);
 //        then().isEqualTo(i);
     }
 

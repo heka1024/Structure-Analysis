@@ -3,8 +3,6 @@ package algebra;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
@@ -96,6 +94,16 @@ public class Vec extends ArrayList<Double> implements Algebraic<Vec> {
         return u;
     }
 
+    public Vec pop(int index) {
+        final Vec u = Vec.of();
+        for (int i = 0; i < size(); i++) {
+            if (i != index) {
+                u.add(get(i));
+            }
+        }
+        return u;
+    }
+
     public Vec subVector(int offset) {
         return subVector(offset, size() - offset);
     }
@@ -134,8 +142,14 @@ public class Vec extends ArrayList<Double> implements Algebraic<Vec> {
         final StringBuilder sb = new StringBuilder();
         sb.append('[');
         for (int i = 0; i < size() - 1; i++) {
+            if (get(i) >= 0) {
+                sb.append(" ");
+            }
             sb.append(String.format("%.3f", get(i)));
             sb.append(", ");
+        }
+        if (get(size() - 1) >= 0) {
+            sb.append(" ");
         }
         sb.append(String.format("%.3f", get(size() - 1)));
         sb.append(']');

@@ -1,8 +1,8 @@
 package algebra;
 
-import static org.assertj.core.api.BDDAssertions.then;
-
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.BDDAssertions.then;
 
 public class VecTest {
     @Test
@@ -111,5 +111,12 @@ public class VecTest {
     void test_subvector_with_limit_and_offset() {
         final Vec u = Vec.of(0.0, 1.0, 2.0, 3.0, 4.0);
         then(u.subVector(2, 2)).isEqualTo(Vec.of(2.0, 3.0));
+    }
+
+    @Test
+    void test_pop() {
+        final Vec u = Vec.of(0.0, 1.0, 2.0, 3.0);
+        final Vec v = u.pop(2);
+        then(v).isEqualTo(Vec.of(0.0, 1.0, 3.0));
     }
 }

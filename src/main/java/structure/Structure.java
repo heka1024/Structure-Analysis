@@ -17,7 +17,7 @@ public class Structure {
     List<Element> elementList;
     List<NodeForce> nodeForces = new ArrayList<>();
     public int nodeSize;
-//    List<Node> nodes;
+    List<Node> nodes = new ArrayList<>();
     Matrix globalKMatrix;
     Vec globalPVector, globalDVector;
 
@@ -42,25 +42,8 @@ public class Structure {
     private Matrix buildGlobalK() {
         final int n = nodeSize;
         Matrix pnew = Matrix.ofSize(3 * n, 3 * n);
-        for (int i = 0; i < n; i++) {
-            final Element cur = elementList.get(i);
-//            System.out.println(Collections.unmodifiableList(elementList));
-//            if (cur.node == null) {
-//                final Matrix current = elementList
-//                        .get(i)
-//                        .getTransformedMatrix()
-//                        .ofOffset(
-//                                3 * i,
-//                                3 * i,
-//                                3 * (n - 1 - i),
-//                                3 * (n - 1 - i)
-//                        );
-//                pnew = pnew.add(current);
-//            } else {
-            System.out.println(cur.getSplited(nodeSize));
-            System.out.println("--------------------------");
-                pnew = pnew.add(cur.getSplited(nodeSize));
-//            }
+        for (Element cur : elementList) {
+            pnew = pnew.add(cur.getSplited(nodeSize));
         }
         return pnew;
     }
@@ -78,6 +61,12 @@ public class Structure {
         return pnew;
     }
 
+    public void distributeForce() {
+        for (Element e : elementList) {
+            e.buildLocalForce(getGlobalDVector());
+        }
+    }
+
     public Vec getGlobalDVector() {
         if (globalDVector == null) {
             return buildGlobalDVector();
@@ -88,7 +77,14 @@ public class Structure {
     private Vec buildGlobalDVector() {
         Objects.requireNonNull(globalKMatrix, "k matrix should be non null");
         Objects.requireNonNull(globalPVector, "p vector should be non null");
+        System.out.println();
         globalDVector = globalKMatrix.solve(globalPVector);
+        System.out.println(" ---------- k inverse -----------");
+        System.out.println(globalKMatrix.inverse().multiplication(globalKMatrix));
+        System.out.println("--------- global d Vector ---------");
+        System.out.println(globalDVector);
+        System.out.println("------------------------------------");
+
         return globalDVector;
     }
 }

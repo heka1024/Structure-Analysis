@@ -16,7 +16,7 @@ public class Element {
     public Pair<Integer, Integer> node;
     public double l, A, E, I, angle = 0.0;
     final Matrix kMatrix, tMatrix;
-    Vec pVector;
+    Vec pVector, localF;
     List<Force> loads = new ArrayList<>();
 
     public Element(double l, double a, double e, double i) {
@@ -125,6 +125,23 @@ public class Element {
         return u
             .add(a.ofOffset(3 * (p - 1), 3 * (n - p)))
             .add(b.ofOffset(3 * (q - 1), 3 * (n - q)));
+    }
+
+    public Vec buildLocalForce(Vec globalD) {
+        final Vec partialD = extract(globalD, node.first, node.second);
+        final Vec m = kMatrix.multiplication(partialD).add(pVector);
+        return localF = tMatrix.transpose().multiplication(m);
+    }
+
+    public static Vec extract(Vec u, int p, int q) {
+        final Vec sliced = Vec.of();
+        for (int i = 3 * (p - 1); i < 3 * p; i++) {
+            sliced.add(u.get(i));
+        }
+        for (int i = 3 * (q - 1); i < 3 * q; i++) {
+            sliced.add(u.get(i));
+        }
+        return sliced;
     }
 
     public Matrix getSplited(int nodeSize) {
