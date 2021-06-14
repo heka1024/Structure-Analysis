@@ -63,6 +63,18 @@ class ElementTest {
     }
 
     @Test
+    void test_build_splitted_vector() {
+        final DistributedForce f = DistributedForce.of(0, 6, 0, 10);
+        final ConcentratedForce cf = ConcentratedForce.of(8, 5);
+        final Element e = Element.of(10, 0,1, 1, 1, 1, 3);
+        e.loads.add(f);
+        e.loads.add(cf);
+        final Vec d = e.buildP();
+        System.out.println(e.splitedVec(5));
+//        then(d).isEqualTo(Vec.of(0.0, 13.0, 30.0, 0.0, 25.0, -40.0));
+    }
+
+    @Test
     void test_build_d_vector() {
         final DistributedForce f = DistributedForce.of(0, 6, 0, 10);
         final ConcentratedForce cf = ConcentratedForce.of(8, 5);

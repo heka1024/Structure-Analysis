@@ -63,16 +63,10 @@ public class Structure {
     }
 
     private Vec buildGlobalP() {
-        final int n = elementList.size();
-        Vec pnew = Vec.ofSize(3 *(n + 1));
-        for (int i = 0; i < n; i++) {
-            final Vec current = elementList
-                    .get(i)
-                    .getTransformedPVector()
-                    .ofOffset(
-                            3 * i,
-                            3 * (n - 1 - i)
-                    );
+        final int n = nodeSize;
+        Vec pnew = Vec.ofSize(3 * n);
+        for (Element element : elementList) {
+            final Vec current = element.splitedVec(n);
             pnew = pnew.add(current);
         }
         return pnew;

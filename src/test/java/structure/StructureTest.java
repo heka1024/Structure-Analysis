@@ -22,10 +22,11 @@ class StructureTest {
     @Test
     void test_build_global_pmatrix() {
         final Structure s = Structure.of(
-                Element.of(5, 90, 1, 1, 1),
-                Element.of(9.9, 45, 1, 1, 1),
-                Element.of(12, -90, 1, 1, 1)
+                Element.of(5, 90, 1, 1, 1, 1, 2),
+                Element.of(9.9, 45, 1, 1, 1, 2, 3),
+                Element.of(12, -90, 1, 1, 1, 3, 4)
         );
+        s.nodeSize = 4;
         final Element e = s.elementList.get(1);
 //        final Element e = Element.of(3, 0, 1, 1, 1);
         final ConcentratedForce f = ConcentratedForce.of(9, 1);

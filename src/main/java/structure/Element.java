@@ -113,6 +113,20 @@ public class Element {
         return tMatrix.multiplication(pVector);
     }
 
+    public Vec splitedVec(int nodeSize) {
+        if (pVector == null) {
+            pVector = buildP();
+        }
+        final int n = nodeSize, p = node.first, q = node.second;
+        final Vec u = Vec.ofSize(3 * nodeSize);
+        final Vec vec = tMatrix.multiplication(pVector);
+        final Vec a = vec.subVector(0, 3);
+        final Vec b = vec.subVector(3, 3);
+        return u
+            .add(a.ofOffset(3 * (p - 1), 3 * (n - p)))
+            .add(b.ofOffset(3 * (q - 1), 3 * (n - q)));
+    }
+
     public Matrix getSplited(int nodeSize) {
         Objects.requireNonNull(node, "node is null");
         final int p = node.first, q = node.second;
