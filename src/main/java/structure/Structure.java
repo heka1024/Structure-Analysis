@@ -4,7 +4,6 @@ import algebra.Matrix;
 import algebra.Vec;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,17 +36,23 @@ public class Structure {
         final int n = elementList.size();
         Matrix pnew = Matrix.ofSize(3 *(n + 1), 3 * (n + 1));
         for (int i = 0; i < n; i++) {
-            System.out.println(Collections.unmodifiableList(elementList));
-            final Matrix current = elementList
-               .get(i)
-               .getTransformedMatrix()
-               .ofOffset(
-                       3 * i,
-                       3 * i,
-                       3 * (n - 1 - i),
-                       3 * (n - 1 - i)
-               );
-            pnew = pnew.add(current);
+            final Element cur = elementList.get(i);
+//            System.out.println(Collections.unmodifiableList(elementList));
+            if (cur.node == null) {
+                final Matrix current = elementList
+                        .get(i)
+                        .getTransformedMatrix()
+                        .ofOffset(
+                                3 * i,
+                                3 * i,
+                                3 * (n - 1 - i),
+                                3 * (n - 1 - i)
+                        );
+                pnew = pnew.add(current);
+            } else {
+
+
+            }
         }
         return pnew;
     }

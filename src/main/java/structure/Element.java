@@ -7,6 +7,7 @@ import util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.Math.pow;
 import static java.lang.Math.toRadians;
@@ -111,6 +112,36 @@ public class Element {
         }
         return tMatrix.multiplication(pVector);
     }
+
+    public Matrix getSplited(int nodeSize) {
+        Objects.requireNonNull(node, "node is null");
+        final int p = node.first, q = node.second;
+        final Matrix a = kMatrix.subMatrix(0, 0, 3, 3);
+        final Matrix b = kMatrix.subMatrix(0, 3, 3, 3);
+        final Matrix c = kMatrix.subMatrix(3, 0, 3, 3);
+        final Matrix d = kMatrix.subMatrix(3, 3, 3, 3);
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(c);
+        System.out.println(d);
+
+        return Matrix.ofSize(3 * nodeSize, 3 * nodeSize)
+                .add(helper(a, nodeSize, p, p))
+                .add(helper(b, nodeSize, p, q))
+                .add(helper(c, nodeSize, q, p))
+                .add(helper(d, nodeSize, q, q));
+    }
+
+    public Matrix helper(Matrix mSmall, int n, int p, int q) {
+        return mSmall.ofOffset(
+                3 * (q - 1),
+                3 * (p - 1),
+                3 * (n - q),
+                3 * (n - p)
+        );
+    }
+
+
 
     @Override
     public String toString() {

@@ -197,6 +197,14 @@ public class MatrixTest {
     }
 
     @Test
+    void solve_matrix_with_12() {
+        final Matrix m = Matrix.of(
+//            Vec.of(0.188,0,-0.375,-0.188,0,)
+        );
+        final Vec u = Vec.of();
+    }
+
+    @Test
     void test_swap_row() {
         final Matrix m = Matrix.of(
                 Vec.of(0.0, 8.0, 2.0),
