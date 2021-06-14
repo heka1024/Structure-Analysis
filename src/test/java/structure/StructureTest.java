@@ -138,6 +138,13 @@ class StructureTest {
         System.out.println("------------------------------------");
         System.out.println(s.buildGlobalDVector());
 
+        s.distributeForce();
+        System.out.println("-----------------------------");
+        for (Element element : s.elementList) {
+            System.out.println("-------- local F ---------------");
+            System.out.println(element.localF);
+        }
+
 //
 //        System.out.println("--------- global P ----------");
 //        final Vec globalP = s.getGlobalPVector();
@@ -164,6 +171,10 @@ class StructureTest {
                 Element.of(12, -90, 1, 1000, 1, 3, 4)
         );
         s.nodeSize = 4;
+        s.nodes.add(Node.of(0, 0, 0));
+        s.nodes.add(Node.of(1, 1, 1));
+        s.nodes.add(Node.of(1, 1, 1));
+        s.nodes.add(Node.of(0, 0, 0));
 
         final Element e = s.elementList.get(1);
 //        final Element e = Element.of(3, 0, 1, 1, 1);
@@ -179,7 +190,7 @@ class StructureTest {
         final Vec globalP = s.getGlobalPVector();
         System.out.println(globalP);
         System.out.println("-----------------");
-
+        s.buildGlobalDVector();
         s.distributeForce();
         for (Element element : s.elementList) {
             System.out.println(element.localF);

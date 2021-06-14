@@ -70,7 +70,7 @@ public class Structure {
     }
 
     public Vec getGlobalDVector() {
-        if (globalDVector == null) {
+        if (globalDVector == null || globalDVector.size() == 0) {
             return buildGlobalDVector();
         }
         return globalDVector;

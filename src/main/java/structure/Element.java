@@ -129,8 +129,13 @@ public class Element {
 
     public Vec buildLocalForce(Vec globalD) {
         final Vec partialD = extract(globalD, node.first, node.second);
-        final Vec m = kMatrix.multiplication(partialD).add(pVector);
-        return localF = tMatrix.transpose().multiplication(m);
+        System.out.println("-------- partial D -----------");
+        System.out.println(partialD);
+        final Vec localD = tMatrix.transpose().multiplication(partialD);
+        System.out.println(" ---------- local D  ------------");
+        System.out.println(localD);
+//        final Vec m = kMatrix.multiplication(localD).add(pVector);
+        return localF = kMatrix.multiplication(localD).add(pVector);
     }
 
     public static Vec extract(Vec u, int p, int q) {
