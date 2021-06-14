@@ -43,7 +43,7 @@ class ElementTest {
         final Element e = Element.of(10, 1, 1, 1);
         e.loads.add(f);
         e.loads.add(cf);
-        final Vec d = e.buildDisplacement();
+        final Vec d = e.buildP();
         then(d).isEqualTo(Vec.of(0.0, 13.0, -30.0, 0.0, 25.0, 40.0));
     }
 }

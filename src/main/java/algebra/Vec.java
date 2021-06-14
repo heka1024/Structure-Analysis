@@ -125,4 +125,20 @@ public class Vec extends ArrayList<Double> implements Algebraic<Vec> {
         set(i, get(j));
         set(j, tmp);
     }
+
+    @Override
+    public String toString() {
+        if (isEmpty()) {
+            return "[]";
+        }
+        final StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        for (int i = 0; i < size() - 1; i++) {
+            sb.append(String.format("%.3f", get(i)));
+            sb.append(", ");
+        }
+        sb.append(String.format("%.3f", get(size() - 1)));
+        sb.append(']');
+        return sb.toString();
+    }
 }

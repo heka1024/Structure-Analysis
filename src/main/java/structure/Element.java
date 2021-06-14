@@ -14,7 +14,7 @@ import static java.lang.Math.toRadians;
 public class Element {
     public double l, A, E, I, angle = 0.0;
     final Matrix kMatrix, tMatrix;
-    Vec dVector;
+    Vec pVector;
     List<Force> loads = new ArrayList<>();
 
     public Element(double l, double a, double e, double i) {
@@ -84,7 +84,7 @@ public class Element {
         return tMatrix.multiplication(kMatrix).multiplication(tMatrix.transpose());
     }
 
-    public Vec buildDisplacement() {
+    public Vec buildP() {
         final Vec u = Vec.ofSize(6);
         for (Force load : loads) {
             final Pair<Double, Double> react = load.reactAtElement(this);
@@ -94,11 +94,15 @@ public class Element {
             u.set(2, u.get(2) + moment.first);
             u.set(5, u.get(5) + moment.second);
         }
-        return dVector = u;
+        return pVector = u;
     }
 
-    public Vec getTransformedDVector() {
-        return tMatrix.multiplication(dVector);
+    public Vec getTransformedPVector() {
+        if (pVector == null) {
+            pVector = buildP();
+            return tMatrix.multiplication(pVector);
+        }
+        return tMatrix.multiplication(pVector);
     }
 
     @Override

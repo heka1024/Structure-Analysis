@@ -14,7 +14,8 @@ public class Structure {
     }
 
     List<Element> elementList;
-    final private Matrix globalKMatrix;
+    final Matrix globalKMatrix;
+    Vec globalPVector;
 
     public static Structure of(Element... args) {
         return new Structure(Arrays.asList(args));
@@ -22,6 +23,13 @@ public class Structure {
 
     public Matrix getGlobalKMatrix() {
         return globalKMatrix;
+    }
+
+    public Vec getGlobalPVector() {
+        if (globalPVector == null) {
+            return globalPVector = buildGlobalP();
+        }
+        return globalPVector;
     }
 
     private Matrix buildGlobalK() {
@@ -38,6 +46,22 @@ public class Structure {
                        3 * (n - 1 - i),
                        3 * (n - 1 - i)
                );
+            pnew = pnew.add(current);
+        }
+        return pnew;
+    }
+
+    private Vec buildGlobalP() {
+        final int n = elementList.size();
+        Vec pnew = Vec.ofSize(3 *(n + 1));
+        for (int i = 0; i < n; i++) {
+            final Vec current = elementList
+                    .get(i)
+                    .getTransformedPVector()
+                    .ofOffset(
+                            3 * i,
+                            3 * (n - 1 - i)
+                    );
             pnew = pnew.add(current);
         }
         return pnew;
