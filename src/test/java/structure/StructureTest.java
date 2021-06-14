@@ -2,12 +2,9 @@ package structure;
 
 import algebra.Matrix;
 import force.ConcentratedForce;
-import util.Pair;
-
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.jupiter.api.Assertions.*;
 
 class StructureTest {
     @Test
@@ -37,4 +34,18 @@ class StructureTest {
         System.out.println(s.getGlobalPVector());
     }
 
+    @Test
+    void test_build_kMatrix() {
+        final Structure s = Structure.of(
+                Element.of(6, 0, 1, 1, 1, 1, 3),
+                Element.of(6, 60, 1, 1, 1, 1, 2),
+                Element.of(6, -60, 1, 1, 1, 2, 3)
+        );
+        System.out.println(s.elementList);
+        s.nodeSize = 3;
+        final Matrix k = s.getGlobalKMatrix();
+        then(k.rowSize()).isEqualTo(9);
+        then(k.columnSize()).isEqualTo(9);
+        System.out.println(k);
+    }
 }

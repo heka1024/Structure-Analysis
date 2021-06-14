@@ -10,13 +10,12 @@ import java.util.Objects;
 public class Structure {
     public Structure(List<Element> elementList) {
         this.elementList = elementList;
-        this.globalKMatrix = buildGlobalK();
     }
 
     List<Element> elementList;
     public int nodeSize;
 //    List<Node> nodes;
-    final Matrix globalKMatrix;
+    Matrix globalKMatrix;
     Vec globalPVector, globalDVector;
 
     public static Structure of(Element... args) {
@@ -24,6 +23,9 @@ public class Structure {
     }
 
     public Matrix getGlobalKMatrix() {
+        if (globalKMatrix == null) {
+            return globalKMatrix = buildGlobalK();
+        }
         return globalKMatrix;
     }
 
@@ -40,20 +42,22 @@ public class Structure {
         for (int i = 0; i < n; i++) {
             final Element cur = elementList.get(i);
 //            System.out.println(Collections.unmodifiableList(elementList));
-            if (cur.node == null) {
-                final Matrix current = elementList
-                        .get(i)
-                        .getTransformedMatrix()
-                        .ofOffset(
-                                3 * i,
-                                3 * i,
-                                3 * (n - 1 - i),
-                                3 * (n - 1 - i)
-                        );
-                pnew = pnew.add(current);
-            } else {
-                pnew.add(cur.getSplited(nodeSize));
-            }
+//            if (cur.node == null) {
+//                final Matrix current = elementList
+//                        .get(i)
+//                        .getTransformedMatrix()
+//                        .ofOffset(
+//                                3 * i,
+//                                3 * i,
+//                                3 * (n - 1 - i),
+//                                3 * (n - 1 - i)
+//                        );
+//                pnew = pnew.add(current);
+//            } else {
+            System.out.println(cur.getSplited(nodeSize));
+            System.out.println("--------------------------");
+                pnew = pnew.add(cur.getSplited(nodeSize));
+//            }
         }
         return pnew;
     }

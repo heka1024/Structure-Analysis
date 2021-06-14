@@ -116,15 +116,22 @@ public class Element {
     public Matrix getSplited(int nodeSize) {
         Objects.requireNonNull(node, "node is null");
         final int p = node.first, q = node.second;
-        final Matrix m = tMatrix.multiplication(kMatrix).multiplication(tMatrix.inverse());
+        final Matrix m = tMatrix.multiplication(kMatrix).multiplication(tMatrix.transpose());
         final Matrix a = m.subMatrix(0, 0, 3, 3);
-        final Matrix b = m.subMatrix(0, 3, 3, 3);
-        final Matrix c = m.subMatrix(3, 0, 3, 3);
+        final Matrix c = m.subMatrix(0, 3, 3, 3);
+        final Matrix b = m.subMatrix(3, 0, 3, 3);
         final Matrix d = m.subMatrix(3, 3, 3, 3);
-        System.out.println(a);
-        System.out.println(b);
-        System.out.println(c);
-        System.out.println(d);
+//        System.out.println(helper(a, nodeSize, p, p));
+//        System.out.println("-------------------");
+//        System.out.println(helper(b, nodeSize, p, q));
+//                System.out.println("-------------------");
+//
+//        System.out.println(helper(c, nodeSize, q, p));
+//                System.out.println("-------------------");
+//
+//        System.out.println(helper(d, nodeSize, q, q));
+//                System.out.println("-------------------");
+
 
         return Matrix.ofSize(3 * nodeSize, 3 * nodeSize)
                 .add(helper(a, nodeSize, p, p))
@@ -152,6 +159,7 @@ public class Element {
                 ", E=" + E +
                 ", I=" + I +
                 ", angle=" + angle +
+                ", node=" + node +
                 '}';
     }
 }

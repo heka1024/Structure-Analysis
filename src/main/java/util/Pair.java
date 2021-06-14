@@ -12,4 +12,9 @@ public class Pair<A, B> {
     public static <A2, B2> Pair<A2, B2> of(A2 first, B2 second) {
         return new Pair<>(first, second);
     }
+
+    @Override
+    public String toString() {
+        return "(" + first + ", " + second + ")";
+    }
 }
