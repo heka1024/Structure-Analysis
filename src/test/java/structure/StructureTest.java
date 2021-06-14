@@ -1,7 +1,10 @@
 package structure;
 
 import algebra.Matrix;
+import algebra.Vec;
 import force.ConcentratedForce;
+import force.NodeForce;
+import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.BDDAssertions.then;
@@ -31,6 +34,10 @@ class StructureTest {
 //        final Element e = Element.of(3, 0, 1, 1, 1);
         final ConcentratedForce f = ConcentratedForce.of(9, 1);
         e.loads.add(f);
+        s.nodeForces.add(NodeForce.of(2, -90.0));
+        final Vec u = s.getGlobalPVector();
+        System.out.println(u);
+        then(u.get(4)).isCloseTo(-96.182, Offset.offset(0.001));
 //        final Pair<Double, Double> p = f.momentAtElement(e);
 //        final Vec v = Vec.of(0.000, 0.000, 0.000, -6.182, 6.182, 7.274, -0.182, 0.182, -0.817, 0.000, 0.000, 0.000);
 //        then(s.getGlobalPVector()).isEqualTo(v);

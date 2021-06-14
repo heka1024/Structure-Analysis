@@ -2,7 +2,9 @@ package structure;
 
 import algebra.Matrix;
 import algebra.Vec;
+import force.NodeForce;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +15,7 @@ public class Structure {
     }
 
     List<Element> elementList;
+    List<NodeForce> nodeForces = new ArrayList<>();
     public int nodeSize;
 //    List<Node> nodes;
     Matrix globalKMatrix;
@@ -65,9 +68,12 @@ public class Structure {
     private Vec buildGlobalP() {
         final int n = nodeSize;
         Vec pnew = Vec.ofSize(3 * n);
+        for (NodeForce nf : nodeForces) {
+            pnew = pnew.add(nf.forceVec(n));
+        }
         for (Element element : elementList) {
             final Vec current = element.splitedVec(n);
-            pnew = pnew.add(current);
+            pnew = pnew.subtract(current);
         }
         return pnew;
     }
