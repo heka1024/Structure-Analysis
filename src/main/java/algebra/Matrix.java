@@ -1,13 +1,13 @@
 package algebra;
 
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
     @Serial
@@ -215,5 +215,19 @@ public class Matrix extends ArrayList<Vec> implements Algebraic<Matrix> {
         }
         sb.append(get(rowSize() - 1));
         return sb.toString();
+    }
+
+    public Matrix pop(int r, int c) {
+        final Matrix m = Matrix.of();
+        for (int i = 0; i < rowSize(); i++) {
+            if (i != r) {
+                m.add(get(i).pop(c));
+            }
+        }
+        return m;
+    }
+
+    public Matrix pop(int i) {
+        return pop(i, i);
     }
 }

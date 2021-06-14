@@ -298,4 +298,34 @@ public class MatrixTest {
         then(n.get(0)).isEqualTo(Vec.of(2.0));
         then(n.get(1)).isEqualTo(Vec.of(8.0));
     }
+
+    @Test
+    void test_pop() {
+        final Matrix m = Matrix.of(
+                Vec.of(0.0, 0.1, 0.2, 0.3),
+                Vec.of(1.0, 1.1, 1.2, 1.3),
+                Vec.of(2.0, 2.1, 2.2, 2.3)
+        );
+        final Matrix n = m.pop(1, 2);
+        final Matrix k = Matrix.of(
+                Vec.of(0.0, 0.1, 0.3),
+                Vec.of(2.0, 2.1, 2.3)
+        );
+        then(n).isEqualTo(k);
+    }
+
+    @Test
+    void test_pop_same_index() {
+        final Matrix m = Matrix.of(
+                Vec.of(0.0, 0.1, 0.2, 0.3),
+                Vec.of(1.0, 1.1, 1.2, 1.3),
+                Vec.of(2.0, 2.1, 2.2, 2.3)
+        );
+        final Matrix n = m.pop(1);
+        final Matrix k = Matrix.of(
+                Vec.of(0.0, 0.2, 0.3),
+                Vec.of(2.0, 2.2, 2.3)
+        );
+        then(n).isEqualTo(k);
+    }
 }
