@@ -6,6 +6,7 @@ import algebra.Vec;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Structure {
     public Structure(List<Element> elementList) {
@@ -15,7 +16,7 @@ public class Structure {
 
     List<Element> elementList;
     final Matrix globalKMatrix;
-    Vec globalPVector;
+    Vec globalPVector, globalDVector;
 
     public static Structure of(Element... args) {
         return new Structure(Arrays.asList(args));
@@ -65,5 +66,19 @@ public class Structure {
             pnew = pnew.add(current);
         }
         return pnew;
+    }
+
+    public Vec getGlobalDVector() {
+        if (globalDVector == null) {
+            return buildGlobalDVector();
+        }
+        return globalDVector;
+    }
+
+    private Vec buildGlobalDVector() {
+        Objects.requireNonNull(globalKMatrix, "k matrix should be non null");
+        Objects.requireNonNull(globalPVector, "p vector should be non null");
+        globalDVector = globalKMatrix.solve(globalPVector);
+        return globalDVector;
     }
 }
