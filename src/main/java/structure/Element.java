@@ -12,6 +12,7 @@ import static java.lang.Math.pow;
 import static java.lang.Math.toRadians;
 
 public class Element {
+    public Pair<Integer, Integer> node;
     public double l, A, E, I, angle = 0.0;
     final Matrix kMatrix, tMatrix;
     Vec pVector;
@@ -46,6 +47,12 @@ public class Element {
 
     public static Element of(double l, double angle, double a, double e, double i) {
         return new Element(l, angle, a, e, i);
+    }
+
+    public static Element of(double l, double angle, double a, double e, double i, int p, int q) {
+        final Element el = new Element(l, angle, a, e, i);
+        el.node = Pair.of(p, q);
+        return el;
     }
 
     private Matrix buildK() {

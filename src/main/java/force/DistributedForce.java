@@ -79,6 +79,6 @@ public class DistributedForce implements Force {
         final double fme_inside = q1 * (-2 * L + 2 * l1 - l2) - q2 * (L - l1 + 2 * l2);
 
         final double fme = (L - l1 - l2) / 6 * fme_inside - fmb + L * reactAtElement(e).first; // - FSb(L)
-        return Pair.of(-fmb, -fme);
+        return Pair.of(fmb, fme);
     }
 }
