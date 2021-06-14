@@ -116,10 +116,11 @@ public class Element {
     public Matrix getSplited(int nodeSize) {
         Objects.requireNonNull(node, "node is null");
         final int p = node.first, q = node.second;
-        final Matrix a = kMatrix.subMatrix(0, 0, 3, 3);
-        final Matrix b = kMatrix.subMatrix(0, 3, 3, 3);
-        final Matrix c = kMatrix.subMatrix(3, 0, 3, 3);
-        final Matrix d = kMatrix.subMatrix(3, 3, 3, 3);
+        final Matrix m = tMatrix.multiplication(kMatrix).multiplication(tMatrix.inverse());
+        final Matrix a = m.subMatrix(0, 0, 3, 3);
+        final Matrix b = m.subMatrix(0, 3, 3, 3);
+        final Matrix c = m.subMatrix(3, 0, 3, 3);
+        final Matrix d = m.subMatrix(3, 3, 3, 3);
         System.out.println(a);
         System.out.println(b);
         System.out.println(c);

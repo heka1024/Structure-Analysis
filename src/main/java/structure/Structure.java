@@ -14,6 +14,8 @@ public class Structure {
     }
 
     List<Element> elementList;
+    public int nodeSize;
+//    List<Node> nodes;
     final Matrix globalKMatrix;
     Vec globalPVector, globalDVector;
 
@@ -33,8 +35,8 @@ public class Structure {
     }
 
     private Matrix buildGlobalK() {
-        final int n = elementList.size();
-        Matrix pnew = Matrix.ofSize(3 *(n + 1), 3 * (n + 1));
+        final int n = nodeSize;
+        Matrix pnew = Matrix.ofSize(3 * n, 3 * n);
         for (int i = 0; i < n; i++) {
             final Element cur = elementList.get(i);
 //            System.out.println(Collections.unmodifiableList(elementList));
@@ -50,8 +52,7 @@ public class Structure {
                         );
                 pnew = pnew.add(current);
             } else {
-
-
+                pnew.add(cur.getSplited(nodeSize));
             }
         }
         return pnew;
