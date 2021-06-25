@@ -13,18 +13,20 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Controller extends JPanel {
-    final static int MESH = 100;
+    static final int MESH = 100;
     public static void main(String[] args) {
         try {
-            File file;
-            file = new File("./g3.input");
-            Scanner sc = new Scanner(file);
-            List<Node> nodes = new ArrayList<>();
-            List<Element> elements = new ArrayList<>();
+            final File file = new File("./g3.input");
+            final Scanner sc = new Scanner(file);
+            final List<Node> nodes = new ArrayList<>();
+            final List<Element> elements = new ArrayList<>();
 
-            int nodeSize = sc.nextInt(), elementSize = sc.nextInt(),
-                cfSize = sc.nextInt(), dfSize = sc.nextInt(),
-                nodeForces = sc.nextInt(), momentForces = sc.nextInt();
+            final int nodeSize = sc.nextInt();
+            final int elementSize = sc.nextInt();
+            final int cfSize = sc.nextInt();
+            final int dfSize = sc.nextInt();
+            final int nodeForces = sc.nextInt();
+            final int momentForces = sc.nextInt();
 
             for (int i = 0; i < nodeSize; i++) {
                 int id = sc.nextInt();
@@ -120,7 +122,7 @@ public class Controller extends JPanel {
                     frame.getContentPane().add(new GraphPanel(xs, bb.get(i), "bmd of element" + n));
                 }
                 frame.pack();
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                 frame.setVisible(true);
             });
 

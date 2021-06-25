@@ -21,7 +21,7 @@ public class GraphPanel extends JPanel {
     public GraphPanel(List<Double> xs, List<Double> ys, String title) {
         this.xs = xs;
         this.ys = ys;
-        JPanel chartPanel = createChartPanel(title);
+        final JPanel chartPanel = createChartPanel(title);
         add(chartPanel);
         setSize(500, 500);
     }
